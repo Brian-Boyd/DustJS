@@ -6,99 +6,25 @@
     <script type="text/javascript" src="jquery-1.11.1.js"></script>
     <script type="text/javascript" src="dust-full.js"></script>
     <script type="text/javascript">
-     function renderTemplates(e) {
-        var templContent = document.getElementById('itemTemplate').innerHTML;
-        var dataTemplate = dust.compile(templContent, "myTmpl");
+    function renderTemplates(e) {
+      $.getJSON("movies.json", function(data) {
+        var content = document.getElementById('movieTemplate').innerHTML;
+        var dataTemplate = dust.compile(content, "template");
 
         dust.loadSource(dataTemplate);
 
-        var dataObj = {
-          "movies" : [{
-            "title" :          "The Shawshank Redemption",
-            "description" :    "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-            "genre" :          "Crime | Drama",
-            "director" :       "Frank Darabont",
-            "starring" :       "Tim Robbins, Morgan Freeman",
-            "release_year" :   "1994",
-            "runtime" :        "142",
-            "mpaa_rating" :    "R",
-            "viewer_rating" :  "9.3",
-            "viewer_count" :   "1,212,557",
-            "image_url" :      "ShawshankRedemption.jpg"
-          }, {
-            "title" :          "Dazed and Confused",
-            "description" :    "The adventures of incoming high school and junior high students on the last day of school, in May of 1976.",
-            "genre" :          "Comedy | Drama",
-            "director" :       "Richard Linklater",
-            "starring" :       "Jason London, Wiley Wiggins, Matthew McConaughey",
-            "release_year" :   "1993",
-            "runtime" :        "102",
-            "mpaa_rating" :    "R",
-            "viewer_rating" :  "7.7",
-            "viewer_count" :   "90,441",
-            "image_url" :      "DazedAndConfused.jpg"
-          }, {
-            "title" :          "Black Hawk Down",
-            "description" :    "123 elite U.S. soldiers drop into Somalia to capture two top lieutenants of a renegade warlord and find themselves in a desperate battle with a large force of heavily-armed Somalis.",
-            "genre" :          "Drama | History | Thriller",
-            "director" :       "Ridley Scott",
-            "starring" :       "Josh Hartnett, Ewan McGregor, Tom Sizemore",
-            "release_year" :   "2001",
-            "runtime" :        "144",
-            "mpaa_rating" :    "R",
-            "viewer_rating" :  "7.7",
-            "viewer_count" :   "231,056",
-            "image_url" :      "BlackHawkDown.jpg"
-          }, {
-            "title" :          "The Dark Knight",
-            "description" :    "When Batman, Gordon and Harvey Dent launch an assault on the mob, they let the clown out of the box, the Joker, bent on turning Gotham on itself and bringing any heroes down to his level.",
-            "genre" :          "Crime | Drama",
-            "director" :       "Christopher Nolan",
-            "starring" :       "Christian Bale, Heath Ledger",
-            "release_year" :   "2008",
-            "runtime" :        "152 min",
-            "mpaa_rating" :    "PG-13",
-            "viewer_rating" :  "9",
-            "viewer_count" :   "1,176,839",
-            "image_url" :      "DarkKnight.jpg"
-          }, {
-            "title" :          "Forrest Gump",
-            "description" :    "Forrest Gump, while not intelligent, has accidentally been present at many historic moments, but his true love, Jenny Curran, eludes him.",
-            "genre" :          "Crime | Drama | Thriller",
-            "director" :       "Robert Zemeckis",
-            "starring" :       "Tom Hanks, Rebecca Williams",
-            "release_year" :   "1994",
-            "runtime" :        "142 min",
-            "mpaa_rating" :    "PG-13",
-            "viewer_rating" :  "8.8",
-            "viewer_count" :   "822,889",
-            "image_url" :      "ForrestGump.jpg"
-          }, {
-            "title" :          "Goodfellas",
-            "description" :    "Henry Hill and his friends work their way up through the mob hierarchy.",
-            "genre" :          "Drama | Romance",
-            "director" :       "Martin Scorsese",
-            "starring" :       "Robert De Niro, Ray Liotta, Joe Pesci",
-            "release_year" :   "1990",
-            "runtime" :        "146 min",
-            "mpaa_rating" :    "R",
-            "viewer_rating" :  "8.7",
-            "viewer_count" :   "527,867",
-            "image_url" :      "Goodfellas.jpg"
-          }]
-        };
-
-        dust.render("myTmpl", dataObj, function (err, res) {
+        dust.render("template", data, function (err, res) {
           document.getElementById('container').innerHTML = res;
         });
-     }
+      });
+    }
 
-     window.addEventListener("load", renderTemplates);
+    window.addEventListener("load", renderTemplates);
     </script>
   </head>
   <body>
     <div class="container">
-      <script type="text/x-template" id="itemTemplate">
+      <script type="text/x-template" id="movieTemplate">
         {#movies}
           <div class="TitleWrapper">
             <div>Title: {title}</div>
